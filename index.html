@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0070)file:///C:/Users/julien.hamerlinck/Downloads/nlo_sell_dashboard_3.html -->
+<!-- saved from url=(0070)file:///C:/Users/julien.hamerlinck/Downloads/nlo_sell_dashboard_7.html -->
 <html lang="nl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>NLO — SELL Dashboard · Acquisitie Nieuwe Spelers</title>
@@ -83,6 +83,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 .tile{background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:8px 12px;position:relative;cursor:pointer;transition:all .12s}
 .tile:hover{border-color:#185fa5;box-shadow:0 2px 8px rgba(24,95,165,.08)}
 .tile.active-trend{border-color:#185fa5;border-width:2px;background:#eff6ff}
+.tile.tile-dash{cursor:default;background:#fafbfc;border-style:dashed;opacity:.7}
+.tile.tile-dash:hover{border-color:#e5e7eb;box-shadow:none;border-style:dashed}
+.tile.tile-dash .tile-val{color:#9ca3af}
 .tile-primary{border-color:#185fa5;background:#f8fbff;border-width:1.5px}
 .tile-cost{background:#eff6ff;border-color:#bfdbfe}
 .tile-warn{background:#fff1f2;border-color:#fecdd3}
@@ -302,11 +305,13 @@ canvas.trend{width:100%;height:220px;display:block}
       <div class="lanes-sub">Elke lane = funnel fase · links→rechts: meta-funnel conversie → stap-conversie → primaire metric → ondersteunende metrics</div>
     </div>
     <div class="lanes-tabs">
-      <div class="lane-tab on" onclick="setPos(this,&#39;total&#39;)">Totaal</div>
+      <div class="lane-tab" onclick="setPos(this,&#39;total&#39;)">Totaal</div>
       <div class="lane-tab" onclick="setPos(this,&#39;web&#39;)">Website</div>
       <div class="lane-tab" onclick="setPos(this,&#39;app&#39;)">App</div>
       <div class="lane-tab" onclick="setPos(this,&#39;ret&#39;)">Retail online</div>
       <div class="lane-tab" onclick="setPos(this,&#39;cad&#39;)">Cadeaushop</div>
+      <div style="width:1px;background:#e5e7eb;margin:0 4px"></div>
+      <div class="lane-tab on" onclick="setPos(this,&#39;off&#39;)" style="background:#fdf2f8;color:#be185d;border-color:#fbcfe8">Retail offline</div>
     </div>
   </div>
 
@@ -317,209 +322,73 @@ canvas.trend{width:100%;height:220px;display:block}
     <div class="col-hdr-cell">Stap conversie<br><span style="font-weight:500;text-transform:none;letter-spacing:0;color:#c0c4cc">vorige → deze stap</span></div>
     <div class="col-hdr-cell">Primaire metric<br><span style="font-weight:500;text-transform:none;letter-spacing:0;color:#c0c4cc">absoluut volume deze fase</span></div>
     <div class="col-hdr-cell">Ondersteunende metrics<br><span style="font-weight:500;text-transform:none;letter-spacing:0;color:#c0c4cc">kwaliteit / efficiency deze fase</span></div>
-  </div><div style="padding:8px 16px;background:#eff6ff;border-bottom:1px solid #f3f4f6;font-size:11px;color:#1d4ed8"><strong>Totaal online:</strong> Geaggregeerd over alle POS</div><div class="lane" style="background:#f8fbff">
-    <div class="lane-label"><div class="lane-label-inner" style="color:#185fa5">Omzet</div></div>
-    <div class="lane-col"><div class="tile" data-trend="rev_per_sess" data-label="[CR] Sessies → omzet" onclick="showTrend(this)">
-    <div class="tile-lbl">[CR] Sessies → omzet</div>
-    <div class="tile-val">€ 0,58</div>
-    <div class="tile-cmp">per sessie</div><div class="tile-delta pos-d">+48.2% vs vp</div>
+  </div><div style="padding:8px 16px;background:#eff6ff;border-bottom:1px solid #f3f4f6;font-size:11px;color:#1d4ed8"><strong>Retail offline:</strong> Retail offline is niet gekoppeld aan een account-ID · geen sessies, funnel of unieke speler-meting mogelijk voor fysieke retail. Alleen uitkomst-metrics.</div><div class="lane" style="background:#fdf2f8">
+    <div class="lane-label"><div class="lane-label-inner" style="color:#be185d">Omzet</div></div>
+    <div class="lane-col"><div class="tile" data-trend="arppu_off" data-label="Gem. omzet / speler" onclick="showTrend(this)">
+    <div class="tile-lbl">Gem. omzet / speler</div>
+    <div class="tile-val">€ 46,20</div>
+    <div class="tile-cmp">gewogen (est. voor retail)</div><div class="tile-delta pos-d">+3.2% vs vp</div>
   </div></div>
-    <div class="lane-col"><div class="tile" data-trend="arppu" data-label="[CR] Spelers → omzet" onclick="showTrend(this)">
-    <div class="tile-lbl">[CR] Spelers → omzet</div>
-    <div class="tile-val">€ 198,60</div>
-    <div class="tile-cmp">per speler (90d)</div><div class="tile-delta pos-d">+4.2% vs vp</div>
+    <div class="lane-col"><div class="tile tile-dash" data-trend="" data-label="—">
+    <div class="tile-lbl">—</div>
+    <div class="tile-val">—</div>
+    <div class="tile-cmp">geen stap-conversie meetbaar offline</div>
   </div></div>
-    <div class="lane-col"><div class="tile tile-primary active-trend" data-trend="total_revenue" data-label="Totale omzet nieuwe spelers" onclick="showTrend(this)">
-    <div class="tile-lbl">Totale omzet nieuwe spelers ★</div>
-    <div class="tile-val">€ 16,8M</div>
-    <div class="tile-cmp">Online € 12,4M · Offline € 4,4M</div><div class="tile-delta pos-d">+14.2% vs vp ↑</div>
+    <div class="lane-col"><div class="tile tile-primary" data-trend="total_revenue_off" data-label="Offline omzet" onclick="showTrend(this)">
+    <div class="tile-lbl">Offline omzet ★</div>
+    <div class="tile-val">€ 4,4M</div>
+    <div class="tile-cmp">Retail € 2,8M · Telesales € 1,1M · DM € 0,5M</div><div class="tile-delta pos-d">+6.2% vs vp</div>
   </div></div>
-    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile" data-trend="aov" data-label="AOV 1e aankoop" onclick="showTrend(this)">
-    <div class="tile-lbl">AOV 1e aankoop</div>
-    <div class="tile-val">€ 14,20</div>
-    <div class="tile-delta pos-d">+11.4%</div>
-  </div><div class="tile" data-trend="arppu" data-label="ARPPU 90d" onclick="showTrend(this)">
-    <div class="tile-lbl">ARPPU 90d</div>
-    <div class="tile-val">€ 38,40</div>
-    <div class="tile-delta pos-d">+8.7%</div>
-  </div><div class="tile" data-trend="price_lot" data-label="Gem. prijs/lot" onclick="showTrend(this)">
-    <div class="tile-lbl">Gem. prijs/lot</div>
-    <div class="tile-val">€ 5,80</div>
-    <div class="tile-delta pos-d">+6.2%</div>
-  </div><div class="tile" data-trend="lots_order" data-label="Loten/aankoop" onclick="showTrend(this)">
-    <div class="tile-lbl">Loten/aankoop</div>
-    <div class="tile-val">2,6</div>
-    <div class="tile-delta pos-d">+4.8%</div>
+    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile" data-trend="aov_off" data-label="AOV" onclick="showTrend(this)">
+    <div class="tile-lbl">AOV</div>
+    <div class="tile-val">€ 12,10</div>
+    <div class="tile-delta pos-d">+2.8%</div>
+  </div><div class="tile" data-trend="price_lot_off" data-label="Gem. prijs/lot (retail)" onclick="showTrend(this)">
+    <div class="tile-lbl">Gem. prijs/lot (retail)</div>
+    <div class="tile-val">€ 4,80</div>
+    <div class="tile-delta pos-d">+2.1%</div>
+  </div><div class="tile" data-trend="lots_order_off" data-label="Gem. loten/aankoop" onclick="showTrend(this)">
+    <div class="tile-lbl">Gem. loten/aankoop</div>
+    <div class="tile-val">2,5</div>
+    <div class="tile-delta pos-d">+1.2%</div>
+  </div><div class="tile" data-trend="promo_off" data-label="% aanko. met promotie" onclick="showTrend(this)">
+    <div class="tile-lbl">% aanko. met promotie</div>
+    <div class="tile-val">32,4%</div>
+    <div class="tile-cmp">hoger dan online — DM discount</div><div class="tile-delta neg-d">-1.8pp</div>
   </div></div></div>
   </div><div class="lane-arrow">▲</div><div class="lane">
     <div class="lane-label"><div class="lane-label-inner" style="color:#166534">Aankoop</div></div>
-    <div class="lane-col"><div class="tile" data-trend="cr_sess_pur" data-label="[CR] Sessies → aankoop" onclick="showTrend(this)">
-    <div class="tile-lbl">[CR] Sessies → aankoop</div>
-    <div class="tile-val">0,29%</div>
-    <div class="tile-cmp">van alle sessies</div><div class="tile-delta pos-d">+26.1% vs vp ↑</div>
+    <div class="lane-col"><div class="tile" data-trend="off_lots" data-label="Aantal losse loten" onclick="showTrend(this)">
+    <div class="tile-lbl">Aantal losse loten</div>
+    <div class="tile-val">412.000</div>
+    <div class="tile-cmp">volume retail + telesales + DM</div><div class="tile-delta pos-d">+4.1% vs vp</div>
   </div></div>
-    <div class="lane-col"><div class="tile" data-trend="ctp" data-label="Control to purchase rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Control to purchase rate</div>
-    <div class="tile-val">82,4%</div>
-    <div class="tile-cmp">betalen / controle</div><div class="tile-delta pos-d">+3.2pp vs vp</div>
+    <div class="lane-col"><div class="tile tile-dash" data-trend="" data-label="—">
+    <div class="tile-lbl">—</div>
+    <div class="tile-val">—</div>
+    <div class="tile-cmp">geen stap-conversie meetbaar offline</div>
   </div></div>
-    <div class="lane-col"><div class="tile tile-primary" data-trend="new_players" data-label="Nieuwe spelers totaal" onclick="showTrend(this)">
-    <div class="tile-lbl">Nieuwe spelers totaal ★</div>
-    <div class="tile-val">84.600</div>
-    <div class="tile-cmp">1e aankoop afgerond</div><div class="tile-delta pos-d">+18.2% vs vp</div>
+    <div class="lane-col"><div class="tile tile-primary" data-trend="off_players" data-label="Aankopen offline" onclick="showTrend(this)">
+    <div class="tile-lbl">Aankopen offline ★</div>
+    <div class="tile-val">~95K</div>
+    <div class="tile-cmp">Retail ~87K (est.) · Telesales 6,2K · DM 2,2K</div><div class="tile-delta pos-d">+4.8% vs vp</div>
   </div></div>
-    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile tile-cost" data-trend="cpa" data-label="CPA" onclick="showTrend(this)">
-    <div class="tile-lbl">CPA</div>
-    <div class="tile-val">€ 33,60</div>
-    <div class="tile-delta pos-d">-8.2% ↓</div>
-  </div><div class="tile" data-trend="abo_share" data-label="Abo aandeel 1e aankoop" onclick="showTrend(this)">
-    <div class="tile-lbl">Abo aandeel 1e aankoop</div>
-    <div class="tile-val">18,4%</div>
-    <div class="tile-delta pos-d">+2.1pp</div>
-  </div><div class="tile" data-trend="time_to_pay" data-label="Tijd tot 1e betaling" onclick="showTrend(this)">
-    <div class="tile-lbl">Tijd tot 1e betaling</div>
-    <div class="tile-val">4,8 dgn</div>
-    <div class="tile-delta pos-d">-0.6 dgn ↓</div>
-  </div><div class="tile tile-warn" data-trend="not_activated" data-label="Niet-geactiveerd %" onclick="showTrend(this)">
-    <div class="tile-lbl">Niet-geactiveerd %</div>
-    <div class="tile-val">37,6%</div>
-    <div class="tile-delta neg-d">-1.2pp vs vp</div>
-  </div></div></div>
-  </div><div class="lane-arrow">▲</div><div class="lane">
-    <div class="lane-label"><div class="lane-label-inner" style="color:#0f6e56">Checkout</div></div>
-    <div class="lane-col"><div class="tile" data-trend="cr_sess_chk" data-label="[CR] Sessies → controle" onclick="showTrend(this)">
-    <div class="tile-lbl">[CR] Sessies → controle</div>
-    <div class="tile-val">0,35%</div>
-    <div class="tile-cmp">van alle sessies</div><div class="tile-delta pos-d">+22.1% vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile" data-trend="ctc" data-label="Cart to control rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Cart to control rate</div>
-    <div class="tile-val">68,2%</div>
-    <div class="tile-cmp">controle / cart</div><div class="tile-delta pos-d">+4.1pp vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile tile-primary" data-trend="controls" data-label="Controle (checkouts)" onclick="showTrend(this)">
-    <div class="tile-lbl">Controle (checkouts) ★</div>
-    <div class="tile-val">102.680</div>
-    <div class="tile-cmp">account-login + betaal-controle</div><div class="tile-delta pos-d">+14.6% vs vp</div>
-  </div></div>
-    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile" data-trend="acc_rate" data-label="Account aanmaak rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Account aanmaak rate</div>
-    <div class="tile-val">42,1%</div>
-    <div class="tile-delta pos-d">+1.8pp</div>
-  </div><div class="tile" data-trend="login_rate" data-label="Login rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Login rate</div>
-    <div class="tile-val">89,4%</div>
-    <div class="tile-delta pos-d">+2.4pp</div>
-  </div><div class="tile tile-warn" data-trend="chk_abandon" data-label="Checkout abandonment" onclick="showTrend(this)">
-    <div class="tile-lbl">Checkout abandonment</div>
-    <div class="tile-val">17,6%</div>
-    <div class="tile-delta pos-d">-3.2pp ↓</div>
-  </div><div class="tile" data-trend="idin" data-label="iDIN verificatie %" onclick="showTrend(this)">
-    <div class="tile-lbl">iDIN verificatie %</div>
-    <div class="tile-val">94,2%</div>
-    <div class="tile-delta pos-d">+0.8pp</div>
-  </div></div></div>
-  </div><div class="lane-arrow">▲</div><div class="lane">
-    <div class="lane-label"><div class="lane-label-inner" style="color:#c2410c">Winkelwagen</div></div>
-    <div class="lane-col"><div class="tile" data-trend="cr_sess_cart" data-label="[CR] Sessies → cart" onclick="showTrend(this)">
-    <div class="tile-lbl">[CR] Sessies → cart</div>
-    <div class="tile-val">0,52%</div>
-    <div class="tile-cmp">van alle sessies</div><div class="tile-delta pos-d">+18.4% vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile" data-trend="atc" data-label="Add-to-cart rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Add-to-cart rate</div>
-    <div class="tile-val">24,4%</div>
-    <div class="tile-cmp">cart / product view</div><div class="tile-delta pos-d">+2.1pp vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile tile-primary" data-trend="carts" data-label="Sessies met add-to-cart" onclick="showTrend(this)">
-    <div class="tile-lbl">Sessies met add-to-cart ★</div>
-    <div class="tile-val">150.624</div>
-    <div class="tile-cmp">producten in winkelwagen geplaatst</div><div class="tile-delta pos-d">+12.8% vs vp</div>
-  </div></div>
-    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile" data-trend="lots_cart" data-label="Gem. loten / cart" onclick="showTrend(this)">
-    <div class="tile-lbl">Gem. loten / cart</div>
-    <div class="tile-val">2,6</div>
-    <div class="tile-delta pos-d">+4.8%</div>
-  </div><div class="tile" data-trend="xl_attach" data-label="XL eindcijfers attach" onclick="showTrend(this)">
-    <div class="tile-lbl">XL eindcijfers attach</div>
-    <div class="tile-val">14,2%</div>
-    <div class="tile-delta pos-d">+1.4pp</div>
-  </div><div class="tile tile-warn" data-trend="cart_abandon" data-label="Cart abandonment" onclick="showTrend(this)">
-    <div class="tile-lbl">Cart abandonment</div>
-    <div class="tile-val">31,8%</div>
-    <div class="tile-delta pos-d">-3.2pp ↓</div>
-  </div><div class="tile" data-trend="cart_val" data-label="Gem. cart waarde" onclick="showTrend(this)">
-    <div class="tile-lbl">Gem. cart waarde</div>
-    <div class="tile-val">€ 15,10</div>
-    <div class="tile-delta pos-d">+8.4%</div>
-  </div></div></div>
-  </div><div class="lane-arrow">▲</div><div class="lane">
-    <div class="lane-label"><div class="lane-label-inner" style="color:#7c3aed">Product view</div></div>
-    <div class="lane-col"><div class="tile" data-trend="cr_sess_view" data-label="[CR] Sessies → view" onclick="showTrend(this)">
-    <div class="tile-lbl">[CR] Sessies → view</div>
-    <div class="tile-val">21,4%</div>
-    <div class="tile-cmp">van alle sessies</div><div class="tile-delta pos-d">+8.4pp vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile" data-trend="pir" data-label="Product interest rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Product interest rate</div>
-    <div class="tile-val">42,8%</div>
-    <div class="tile-cmp">view / engaged session</div><div class="tile-delta pos-d">+2.8pp vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile tile-primary" data-trend="views" data-label="Sessies met product view" onclick="showTrend(this)">
-    <div class="tile-lbl">Sessies met product view ★</div>
-    <div class="tile-val">6,16M</div>
-    <div class="tile-cmp">bezoekers zagen een product</div><div class="tile-delta pos-d">+16.2% vs vp</div>
-  </div></div>
-    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile" data-trend="views_sess" data-label="Gem. views / sessie" onclick="showTrend(this)">
-    <div class="tile-lbl">Gem. views / sessie</div>
-    <div class="tile-val">2,8</div>
-    <div class="tile-delta pos-d">+4.1%</div>
-  </div><div class="tile" data-trend="los_views" data-label="LOS views" onclick="showTrend(this)">
-    <div class="tile-lbl">LOS views</div>
-    <div class="tile-val">61%</div>
-    <div class="tile-delta neu-d">—</div>
-  </div><div class="tile" data-trend="abo_views" data-label="ABO views" onclick="showTrend(this)">
-    <div class="tile-lbl">ABO views</div>
-    <div class="tile-val">28%</div>
-    <div class="tile-delta pos-d">+2.4pp</div>
-  </div><div class="tile" data-trend="groep_views" data-label="Groep views" onclick="showTrend(this)">
-    <div class="tile-lbl">Groep views</div>
-    <div class="tile-val">11%</div>
-    <div class="tile-delta pos-d">+1.2pp</div>
-  </div></div></div>
-  </div><div class="lane-arrow">▲</div><div class="lane" style="background:#fafbfc">
-    <div class="lane-label"><div class="lane-label-inner" style="color:#6b7280">Traffic</div></div>
-    <div class="lane-col"><div class="tile" data-trend="engagement" data-label="Engagement rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Engagement rate</div>
-    <div class="tile-val">64,0%</div>
-    <div class="tile-cmp">engaged / totaal</div><div class="tile-delta pos-d">+1.8pp vs vp</div>
-  </div></div>
-    <div class="lane-col"><div class="tile" data-trend="bounce" data-label="Bounce rate" onclick="showTrend(this)">
-    <div class="tile-lbl">Bounce rate</div>
-    <div class="tile-val">36,0%</div>
-    <div class="tile-cmp">niet-engaged sessies</div><div class="tile-delta pos-d">-1.8pp ↓ goed</div>
-  </div></div>
-    <div class="lane-col"><div class="tile tile-primary" data-trend="sessions" data-label="Totale sessies" onclick="showTrend(this)">
-    <div class="tile-lbl">Totale sessies ★</div>
-    <div class="tile-val">28,8M</div>
-    <div class="tile-cmp">alle bronnen, alle POS</div><div class="tile-delta pos-d">+9.8% vs vp</div>
-  </div></div>
-    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile tile-cost" data-trend="spend" data-label="Media spend totaal" onclick="showTrend(this)">
-    <div class="tile-lbl">Media spend totaal</div>
-    <div class="tile-val">€ 2,84M</div>
-    <div class="tile-delta neg-d">+8.4% ↑</div>
-  </div><div class="tile tile-cost" data-trend="cost_sess" data-label="Cost / engaged sessie" onclick="showTrend(this)">
-    <div class="tile-lbl">Cost / engaged sessie</div>
-    <div class="tile-val">€ 0,34</div>
-    <div class="tile-delta pos-d">-2.1% ↓</div>
-  </div><div class="tile tile-cost" data-trend="cpc" data-label="CPC (search)" onclick="showTrend(this)">
-    <div class="tile-lbl">CPC (search)</div>
-    <div class="tile-val">€ 0,25</div>
-    <div class="tile-delta neg-d">+3.4%</div>
-  </div><div class="tile tile-cost" data-trend="ctr" data-label="CTR (gem.)" onclick="showTrend(this)">
-    <div class="tile-lbl">CTR (gem.)</div>
-    <div class="tile-val">3,1%</div>
-    <div class="tile-delta pos-d">+0.4pp</div>
+    <div class="lane-col"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div class="tile" data-trend="retail_players" data-label="Retail spelers (est.)" onclick="showTrend(this)">
+    <div class="tile-lbl">Retail spelers (est.)</div>
+    <div class="tile-val">~87.000</div>
+    <div class="tile-cmp">geschat via lot-volume, geen account-ID</div><div class="tile-delta pos-d">+3.8% vs vp</div>
+  </div><div class="tile" data-trend="tele_players" data-label="Telesales aankopen" onclick="showTrend(this)">
+    <div class="tile-lbl">Telesales aankopen</div>
+    <div class="tile-val">6.240</div>
+    <div class="tile-delta pos-d">+12.1%</div>
+  </div><div class="tile tile-cost" data-trend="tele_cpa" data-label="Telesales CPA" onclick="showTrend(this)">
+    <div class="tile-lbl">Telesales CPA</div>
+    <div class="tile-val">€ 34,20</div>
+    <div class="tile-delta neg-d">+1.4%</div>
+  </div><div class="tile" data-trend="dm_players" data-label="Direct Mail aankopen" onclick="showTrend(this)">
+    <div class="tile-lbl">Direct Mail aankopen</div>
+    <div class="tile-val">2.180</div>
+    <div class="tile-delta neg-d">-2.4% vs vp</div>
   </div></div></div>
   </div></div>
 
@@ -782,10 +651,13 @@ function tile(opts){
   if(opts.primary) cls.push('tile-primary');
   if(opts.cost) cls.push('tile-cost');
   if(opts.warn) cls.push('tile-warn');
+  const isDash = opts.val === '—';
+  if(isDash) cls.push('tile-dash');
   const delta = opts.delta ? `<div class="tile-delta ${opts.deltaCls||'pos-d'}">${opts.delta}</div>` : '';
   const cmp = opts.cmp ? `<div class="tile-cmp">${opts.cmp}</div>` : '';
   const primaryMark = opts.primary ? ' ★' : '';
-  return `<div class="${cls.join(' ')}" data-trend="${opts.trend||''}" data-label="${opts.label||''}" onclick="showTrend(this)">
+  const clickHandler = opts.trend ? 'onclick="showTrend(this)"' : '';
+  return `<div class="${cls.join(' ')}" data-trend="${opts.trend||''}" data-label="${opts.label||''}" ${clickHandler}>
     <div class="tile-lbl">${opts.label}${primaryMark}</div>
     <div class="tile-val">${opts.val}</div>
     ${cmp}${delta}
@@ -820,7 +692,7 @@ const POS_CONFIGS = {
         primary:{label:'Totale omzet nieuwe spelers', val:'€ 16,8M', cmp:'Online € 12,4M · Offline € 4,4M', delta:'+14.2% vs vp ↑', trend:'total_revenue'},
         supporting:[
           {label:'AOV 1e aankoop', val:'€ 14,20', delta:'+11.4%', trend:'aov'},
-          {label:'ARPPU 90d', val:'€ 38,40', delta:'+8.7%', trend:'arppu'},
+          {label:'ROAS', val:'5,91×', delta:'+0.52× ↑', trend:'roas'},
           {label:'Gem. prijs/lot', val:'€ 5,80', delta:'+6.2%', trend:'price_lot'},
           {label:'Loten/aankoop', val:'2,6', delta:'+4.8%', trend:'lots_order'}
         ]},
@@ -886,7 +758,7 @@ const POS_CONFIGS = {
         primary:{label:'Omzet nieuwe spelers · Website', val:'€ 7,2M', cmp:'42,9% van totaal', delta:'+22.4% vs vp', trend:'total_revenue'},
         supporting:[
           {label:'AOV 1e aankoop', val:'€ 14,90', delta:'+12.4%', trend:'aov'},
-          {label:'ARPPU 90d', val:'€ 42,80', delta:'+9.2%', trend:'arppu'},
+          {label:'ROAS', val:'4,86×', delta:'+0.41× ↑', trend:'roas'},
           {label:'Gem. prijs/lot', val:'€ 5,90', delta:'+5.8%', trend:'price_lot'},
           {label:'Loten/aankoop', val:'2,5', delta:'+4.2%', trend:'lots_order'}
         ]},
@@ -952,7 +824,7 @@ const POS_CONFIGS = {
         primary:{label:'Omzet nieuwe spelers · App', val:'€ 3,8M', cmp:'22,6% van totaal', delta:'+38.4% vs vp ↑', trend:'total_revenue'},
         supporting:[
           {label:'AOV 1e aankoop', val:'€ 15,80', delta:'+14.2%', trend:'aov'},
-          {label:'ARPPU 90d', val:'€ 42,10', delta:'+11.4%', trend:'arppu'},
+          {label:'ROAS', val:'7,12×', delta:'+0.84× ↑', trend:'roas'},
           {label:'Gem. prijs/lot', val:'€ 6,10', delta:'+7.4%', trend:'price_lot'},
           {label:'Loten/aankoop', val:'2,6', delta:'+6.2%', trend:'lots_order'}
         ]},
@@ -1018,7 +890,7 @@ const POS_CONFIGS = {
         primary:{label:'Omzet nieuwe spelers · Retail online', val:'€ 0,9M', cmp:'5,4% van totaal', delta:'+4.2% vs vp', trend:'total_revenue'},
         supporting:[
           {label:'AOV 1e aankoop', val:'€ 10,40', delta:'+3.8%', trend:'aov'},
-          {label:'ARPPU 90d', val:'€ 28,60', delta:'+1.4%', trend:'arppu'},
+          {label:'ROAS', val:'3,24×', delta:'+0.12× ↑', trend:'roas'},
           {label:'Gem. prijs/lot', val:'€ 4,20', delta:'+2.1%', trend:'price_lot', cmp:'lager — retail portfolio'},
           {label:'Loten/aankoop', val:'2,5', delta:'+1.8%', trend:'lots_order'}
         ]},
@@ -1084,7 +956,7 @@ const POS_CONFIGS = {
         primary:{label:'Omzet nieuwe spelers · Cadeaushop', val:'€ 0,5M', cmp:'3,0% van totaal', delta:'+8.4% vs vp', trend:'total_revenue'},
         supporting:[
           {label:'AOV 1e aankoop', val:'€ 12,80', delta:'+6.4%', trend:'aov'},
-          {label:'ARPPU 90d', val:'€ 32,10', delta:'+3.2%', trend:'arppu'},
+          {label:'ROAS', val:'1,92×', delta:'+0.08× ↑', trend:'roas'},
           {label:'Gem. prijs/lot', val:'€ 5,20', delta:'+4.2%', trend:'price_lot'},
           {label:'Loten/aankoop', val:'2,5', delta:'+3.8%', trend:'lots_order'}
         ]},
@@ -1139,7 +1011,34 @@ const POS_CONFIGS = {
           {label:'CTR (Meta)', val:'3,4%', cost:true, delta:'+0.2pp', trend:'ctr'}
         ]}
     ]
+  },
+  off: {
+    label: 'Retail offline',
+    note: 'Retail offline is niet gekoppeld aan een account-ID · geen sessies, funnel of unieke speler-meting mogelijk voor fysieke retail. Alleen uitkomst-metrics.',
+    lanes: [
+      { label:'Omzet', color:'#be185d', bg:'#fdf2f8',
+        metaCR:{label:'Gem. omzet / speler', val:'€ 46,20', cmp:'gewogen (est. voor retail)', delta:'+3.2% vs vp', trend:'arppu_off'},
+        stepCR:{label:'—', val:'—', cmp:'geen stap-conversie meetbaar offline', delta:'', deltaCls:'neu-d', trend:''},
+        primary:{label:'Offline omzet', val:'€ 4,4M', cmp:'Retail € 2,8M · Telesales € 1,1M · DM € 0,5M', delta:'+6.2% vs vp', trend:'total_revenue_off'},
+        supporting:[
+          {label:'AOV', val:'€ 12,10', delta:'+2.8%', trend:'aov_off'},
+          {label:'Gem. prijs/lot (retail)', val:'€ 4,80', delta:'+2.1%', trend:'price_lot_off'},
+          {label:'Gem. loten/aankoop', val:'2,5', delta:'+1.2%', trend:'lots_order_off'},
+          {label:'% aanko. met promotie', val:'32,4%', deltaCls:'neg-d', delta:'-1.8pp', trend:'promo_off', cmp:'hoger dan online — DM discount'}
+        ]},
+      { label:'Aankoop', color:'#166534',
+        metaCR:{label:'Aantal losse loten', val:'412.000', cmp:'volume retail + telesales + DM', delta:'+4.1% vs vp', trend:'off_lots'},
+        stepCR:{label:'—', val:'—', cmp:'geen stap-conversie meetbaar offline', delta:'', deltaCls:'neu-d', trend:''},
+        primary:{label:'Aankopen offline', val:'~95K', cmp:'Retail ~87K (est.) · Telesales 6,2K · DM 2,2K', delta:'+4.8% vs vp', trend:'off_players'},
+        supporting:[
+          {label:'Retail spelers (est.)', val:'~87.000', cmp:'geschat via lot-volume, geen account-ID', delta:'+3.8% vs vp', trend:'retail_players'},
+          {label:'Telesales aankopen', val:'6.240', delta:'+12.1%', trend:'tele_players'},
+          {label:'Telesales CPA', val:'€ 34,20', cost:true, deltaCls:'neg-d', delta:'+1.4%', trend:'tele_cpa'},
+          {label:'Direct Mail aankopen', val:'2.180', deltaCls:'neg-d', delta:'-2.4% vs vp', trend:'dm_players'}
+        ]}
+    ]
   }
+
 };
 
 // ══════════════════════════════════════════════
@@ -1210,6 +1109,7 @@ const TREND_BASE = {
   total_revenue: { base: 1.18, growth: 0.142, unit:'M', prefix:'€', label:'Totale omzet nieuwe spelers' },
   rev_per_sess: { base: 0.42, growth: 0.482, unit:'', prefix:'€', label:'[CR] Sessies → omzet' },
   arppu: { base: 32.0, growth: 0.087, unit:'', prefix:'€', label:'ARPPU 90d' },
+  roas: { base: 5.39, growth: 0.097, unit:'×', prefix:'', label:'ROAS — return on ad spend' },
   aov: { base: 12.7, growth: 0.114, unit:'', prefix:'€', label:'AOV 1e aankoop' },
   price_lot: { base: 5.46, growth: 0.062, unit:'', prefix:'€', label:'Gem. prijs per lot' },
   lots_order: { base: 2.48, growth: 0.048, unit:'', prefix:'', label:'Gem. loten per aankoop' },
@@ -1257,7 +1157,23 @@ const TREND_BASE = {
   spend: { base: 0.22, growth: 0.084, unit:'M', prefix:'€', label:'Media spend totaal' },
   cost_sess: { base: 0.35, growth: -0.021, unit:'', prefix:'€', label:'Cost per engaged sessie' },
   cpc: { base: 0.24, growth: 0.028, unit:'', prefix:'€', label:'CPC (search)' },
-  ctr: { base: 2.95, growth: 0.051, unit:'%', prefix:'', label:'CTR gemiddeld' }
+  ctr: { base: 2.95, growth: 0.051, unit:'%', prefix:'', label:'CTR gemiddeld' },
+  // Offline-specific
+  total_revenue_off: { base: 0.32, growth: 0.062, unit:'M', prefix:'€', label:'Offline omzet nieuwe spelers' },
+  arppu_off: { base: 44.7, growth: 0.032, unit:'', prefix:'€', label:'Offline gem. omzet per speler (gewogen)' },
+  off_share: { base: 26.6, growth: -0.014, unit:'%', prefix:'', label:'Offline share of first purchase' },
+  aov_off: { base: 11.7, growth: 0.028, unit:'', prefix:'€', label:'Offline AOV' },
+  price_lot_off: { base: 4.68, growth: 0.021, unit:'', prefix:'€', label:'Offline prijs per lot (retail)' },
+  lots_order_off: { base: 2.47, growth: 0.012, unit:'', prefix:'', label:'Offline loten per aankoop' },
+  promo_off: { base: 33.0, growth: -0.018, unit:'%', prefix:'', label:'Offline % aanko. met promotie' },
+  off_lots: { base: 32.8, growth: 0.041, unit:'K', prefix:'', label:'Aantal losse loten offline' },
+  off_conv: { base: 17.9, growth: 0.024, unit:'%', prefix:'', label:'Offline conversie %' },
+  off_players: { base: 90.0, growth: 0.048, unit:'K', prefix:'', label:'Offline aankopen totaal' },
+  tele_players: { base: 0.46, growth: 0.121, unit:'K', prefix:'', label:'Telesales aankopen' },
+  retail_players: { base: 70.0, growth: 0.038, unit:'K', prefix:'', label:'Retail spelers (est. via lot-volume)' },
+  tele_cpa: { base: 33.75, growth: 0.014, unit:'', prefix:'€', label:'Telesales CPA' },
+  dm_players: { base: 0.18, growth: -0.024, unit:'K', prefix:'', label:'Direct Mail aankopen' },
+  dm_rr: { base: 2.13, growth: -0.002, unit:'%', prefix:'', label:'Direct Mail response rate' }
 };
 
 let currentTrend = 'total_revenue';
